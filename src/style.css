@@ -22,20 +22,24 @@ body {
     padding: 20px 40px;
     background: #fff;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .map-wrapper {
     position: relative;
     height: 100%;
     width: 100%;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-container {
     position: relative;
     width: 550px; /* 11 units */
     height: 700px; /* 14 units */
-    margin: 0 auto;
 }
 
 #comparison-container {
