@@ -4,6 +4,21 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 // Create the main UI structure
 document.querySelector("#app").innerHTML = `
+  <div class="map-wrapper">
+    <div class="map-container">
+      <div id="comparison-container">
+        <div id="left" class="compare-map">
+          <div id="overlay-left" class="circle medium"></div>
+        </div>
+        <div id="right" class="compare-map"></div>
+        <div class="pad-scroll scrl-left"></div>
+        <div class="pad-scroll scrl-right"></div>
+        <div class="pad-scroll scrl-top"></div>
+        <div class="pad-scroll scrl-bot"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="controls-panel">
     <h2>Wood Map Preview</h2>
 
@@ -29,21 +44,6 @@ document.querySelector("#app").innerHTML = `
 
     <button id="submit-button">Submit Map Selection</button>
   </div>
-
-  <div class="map-wrapper">
-    <div class="map-container">
-      <div id="comparison-container">
-        <div id="left" class="compare-map">
-          <div id="overlay-left" class="circle medium"></div>
-        </div>
-        <div id="right" class="compare-map"></div>
-        <div class="pad-scroll scrl-left"></div>
-        <div class="pad-scroll scrl-right"></div>
-        <div class="pad-scroll scrl-top"></div>
-        <div class="pad-scroll scrl-bot"></div>
-      </div>
-    </div>
-  </div>
 `;
 
 // Initialize the before (left) map
@@ -60,11 +60,7 @@ const afterMap = new mapboxgl.Map({
   style: {
     version: 8,
     sources: {
-      streets: {
-        type: "vector",
-        url: "mapbox://mapbox.mapbox-streets-v8",
-      },
-      water: {
+      "mapbox-streets": {
         type: "vector",
         url: "mapbox://mapbox.mapbox-streets-v8",
       },
@@ -80,7 +76,7 @@ const afterMap = new mapboxgl.Map({
       {
         id: "water",
         type: "fill",
-        source: "water",
+        source: "mapbox-streets",
         "source-layer": "water",
         paint: {
           "fill-color": "#0000ff",
@@ -89,9 +85,20 @@ const afterMap = new mapboxgl.Map({
       {
         id: "major-roads",
         type: "line",
-        source: "streets",
+        source: "mapbox-streets",
         "source-layer": "road",
-        filter: ["==", "class", "major"],
+        filter: [
+          "all",
+          [
+            "in",
+            "class",
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary",
+          ],
+        ],
         paint: {
           "line-color": "black",
           "line-width": 2,
@@ -100,9 +107,9 @@ const afterMap = new mapboxgl.Map({
       {
         id: "minor-roads",
         type: "line",
-        source: "streets",
+        source: "mapbox-streets",
         "source-layer": "road",
-        filter: ["==", "class", "minor"],
+        filter: ["all", ["in", "class", "street", "street_limited", "service"]],
         paint: {
           "line-color": "red",
           "line-width": 1,
