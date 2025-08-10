@@ -14,7 +14,7 @@ body {
 
 #app {
     display: grid;
-    grid-template-columns: 770px 1fr; /* 11:14 aspect ratio = 770px width for 600px height */
+    grid-template-columns: 550px 1fr; /* Width based on 11:14 ratio */
     height: 100vh;
 }
 
@@ -33,8 +33,8 @@ body {
 
 .map-container {
     position: relative;
-    width: 770px; /* 11:14 aspect ratio width */
-    height: 600px; /* Fixed height */
+    width: 550px; /* 11 units */
+    height: 700px; /* 14 units */
     margin: 0 auto;
 }
 
