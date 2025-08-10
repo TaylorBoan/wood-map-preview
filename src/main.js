@@ -20,29 +20,31 @@ document.querySelector("#app").innerHTML = `
   </div>
 
   <div class="controls-panel">
-    <h2>Wood Map Preview</h2>
+    <div class="controls-content">
+      <h2>Wood Map Preview</h2>
 
-    <div class="form-group">
-      <label for="location">Location Search</label>
-      <div id="geocoder"></div>
+      <div class="form-group">
+        <label for="location">Location Search</label>
+        <div id="geocoder"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="title">Map Title</label>
+        <input type="text" id="title" placeholder="Enter map title">
+      </div>
+
+      <div class="form-group">
+        <label for="subtitle">Map Subtitle</label>
+        <input type="text" id="subtitle" placeholder="Enter map subtitle">
+      </div>
+
+      <div class="form-group">
+        <label for="order">Order Number</label>
+        <input type="text" id="order" placeholder="Enter order number">
+      </div>
+
+      <button id="submit-button">Submit Map Selection</button>
     </div>
-
-    <div class="form-group">
-      <label for="title">Map Title</label>
-      <input type="text" id="title" placeholder="Enter map title">
-    </div>
-
-    <div class="form-group">
-      <label for="subtitle">Map Subtitle</label>
-      <input type="text" id="subtitle" placeholder="Enter map subtitle">
-    </div>
-
-    <div class="form-group">
-      <label for="order">Order Number</label>
-      <input type="text" id="order" placeholder="Enter order number">
-    </div>
-
-    <button id="submit-button">Submit Map Selection</button>
   </div>
 `;
 
