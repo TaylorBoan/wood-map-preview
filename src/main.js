@@ -6,8 +6,8 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 document.querySelector("#app").innerHTML = `
   <div class="map-wrapper">
     <div class="aspect-selector">
-      <button class="aspect-btn active" data-ratio="4x4">4x4</button>
-      <button class="aspect-btn" data-ratio="11x14">11x14</button>
+      <button class="aspect-btn" data-ratio="4x4">4x4</button>
+      <button class="aspect-btn active" data-ratio="11x14">11x14</button>
       <button class="aspect-btn" data-ratio="16x16">16x16</button>
       <button class="aspect-btn" data-ratio="20x20">20x20</button>
     </div>
@@ -21,6 +21,9 @@ document.querySelector("#app").innerHTML = `
         <div class="pad-scroll scrl-top"></div>
         <div class="pad-scroll scrl-bot"></div>
       </div>
+    </div>
+    <div class="bounding-box-display" id="bounding-box-display">
+      Bounds: Loading...
     </div>
   </div>
 
@@ -167,6 +170,17 @@ geocoder.on("result", (e) => {
   afterMap.flyTo({ center: coords, zoom: 14 });
 });
 
+// Function to update bounding box display
+function updateBoundingBoxDisplay() {
+  const bounds = beforeMap.getBounds();
+  const boundingBoxDisplay = document.getElementById("bounding-box-display");
+  boundingBoxDisplay.textContent = `Bounds: ${bounds.getSouth().toFixed(4)}, ${bounds.getWest().toFixed(4)}, ${bounds.getNorth().toFixed(4)}, ${bounds.getEast().toFixed(4)}`;
+}
+
+// Update bounding box display on map move
+beforeMap.on("moveend", updateBoundingBoxDisplay);
+beforeMap.on("load", updateBoundingBoxDisplay);
+
 // Handle form submission
 document.getElementById("submit-button").addEventListener("click", () => {
   const bounds = beforeMap.getBounds();
@@ -202,22 +216,23 @@ aspectBtns.forEach((btn) => {
     const ratio = btn.dataset.ratio;
 
     // Update map container dimensions based on ratio
+    // Using a scale factor to make larger ratios proportionally bigger
     switch (ratio) {
       case "4x4":
-        mapContainer.style.width = "400px";
-        mapContainer.style.height = "400px";
+        mapContainer.style.width = "320px";
+        mapContainer.style.height = "320px";
         break;
       case "11x14":
-        mapContainer.style.width = "440px";
-        mapContainer.style.height = "560px";
+        mapContainer.style.width = "385px";
+        mapContainer.style.height = "490px";
         break;
       case "16x16":
         mapContainer.style.width = "480px";
         mapContainer.style.height = "480px";
         break;
       case "20x20":
-        mapContainer.style.width = "500px";
-        mapContainer.style.height = "500px";
+        mapContainer.style.width = "560px";
+        mapContainer.style.height = "560px";
         break;
     }
 

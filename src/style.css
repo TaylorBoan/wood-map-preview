@@ -14,7 +14,7 @@ body {
 
 #app {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* 1/3 for map, 2/3 for controls */
+    grid-template-columns: 1fr 1fr; /* Equal width for map and controls */
     height: 100vh;
 }
 
@@ -86,16 +86,26 @@ body {
 }
 
 .aspect-btn.active {
-    background-color: #1a73e8;
+    background-color: #6c757d;
     color: white;
 }
 
 .map-container {
     position: relative;
-    width: 500px;
-    height: 650px;
+    width: 385px;
+    height: 490px;
     max-width: 90%;
     max-height: 90%;
+}
+
+.bounding-box-display {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #666;
+    text-align: center;
+    font-family: monospace;
+    max-width: 100%;
+    word-break: break-all;
 }
 
 #comparison-container {
@@ -125,7 +135,7 @@ body {
 }
 
 /* Override Mapbox Compare plugin's vertical orientation */
-.mapboxgl-compare {
+/*.mapboxgl-compare {
     width: 2px;
     height: 100% !important;
     position: absolute !important;
@@ -134,11 +144,11 @@ body {
     cursor: ew-resize !important;
     top: 0 !important;
     left: 50% !important;
-}
+}*/
 
-.mapboxgl-compare .compare-swiper-vertical {
+/*.mapboxgl-compare .compare-swiper-vertical {
     display: none !important;
-}
+}*/
 
 .circle {
     position: absolute;
