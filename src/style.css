@@ -134,22 +134,6 @@ body {
     height: 100%;
 }
 
-/* Override Mapbox Compare plugin's vertical orientation */
-/*.mapboxgl-compare {
-    width: 2px;
-    height: 100% !important;
-    position: absolute !important;
-    z-index: 2;
-    background-color: #3887be;
-    cursor: ew-resize !important;
-    top: 0 !important;
-    left: 50% !important;
-}*/
-
-/*.mapboxgl-compare .compare-swiper-vertical {
-    display: none !important;
-}*/
-
 .circle {
     position: absolute;
     width: 320px;
@@ -251,4 +235,44 @@ button:hover {
     width: 100% !important;
     max-width: none !important;
     margin-top: 0 !important;
+}
+
+/* Remove padding on the element that directly wraps the compare container */
+.map-wrapper {
+    padding: 0;
+}
+.map-container {
+    padding: 0;
+} /* or move the padding to an outer wrapper */
+#comparison-container {
+    padding: 0;
+    border: 0;
+}
+
+/* Let the handle hang past the edge */
+#comparison-container {
+    overflow: visible;
+}
+
+/* Make sure there’s truly no visual inset */
+#comparison-container,
+.map-container,
+.map-wrapper {
+    padding: 0;
+    border: 0;
+}
+
+/* Ensure the map canvas exactly fills the box */
+#comparison-container .mapboxgl-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block; /* avoid any inline-element gaps */
+    box-sizing: border-box;
+}
+
+/* debug */
+#comparison-container,
+.map-container,
+.map-wrapper {
+    outline: 1px solid magenta;
 }

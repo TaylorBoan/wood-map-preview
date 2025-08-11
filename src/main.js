@@ -149,7 +149,14 @@ const afterMap = new mapboxgl.Map({
 const container = "#comparison-container";
 const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
   mousemove: true,
-  orientation: "horizontal",
+  orientation: "vertical",
+});
+
+// Delete Me once the slider is working
+afterMap.on("load", () => {
+  beforeMap.once("load", () => {
+    compare.setSlider(100); // hard-right
+  });
 });
 
 // Add geocoder (search) control
