@@ -5,10 +5,15 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 // Create the main UI structure
 document.querySelector("#app").innerHTML = `
   <div class="map-wrapper">
-    <div class="map-container">
+    <div class="aspect-selector">
+      <button class="aspect-btn active" data-ratio="4x4">4x4</button>
+      <button class="aspect-btn" data-ratio="11x14">11x14</button>
+      <button class="aspect-btn" data-ratio="16x16">16x16</button>
+      <button class="aspect-btn" data-ratio="20x20">20x20</button>
+    </div>
+    <div class="map-container" id="map-container">
       <div id="comparison-container">
         <div id="left" class="compare-map">
-          <div id="overlay-left" class="circle medium"></div>
         </div>
         <div id="right" class="compare-map"></div>
         <div class="pad-scroll scrl-left"></div>
@@ -111,6 +116,8 @@ const afterMap = new mapboxgl.Map({
         type: "line",
         source: "mapbox-streets",
         "source-layer": "road",
+        minzoom: 0,
+        maxzoom: 24,
         filter: [
           "all",
           [
@@ -126,17 +133,7 @@ const afterMap = new mapboxgl.Map({
         ],
         paint: {
           "line-color": "red",
-          "line-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            10,
-            0.5,
-            14,
-            1,
-            18,
-            2,
-          ],
+          "line-width": 1.5,
         },
       },
     ],
@@ -189,4 +186,43 @@ document.getElementById("submit-button").addEventListener("click", () => {
     `;
 
   window.location.href = `mailto:taylor@themapsguy.com?subject=New Map Selection - Order ${orderNumber}&body=${encodeURIComponent(emailBody)}`;
+});
+
+// Handle aspect ratio selection
+const aspectBtns = document.querySelectorAll(".aspect-btn");
+const mapContainer = document.getElementById("map-container");
+
+aspectBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // Remove active class from all buttons
+    aspectBtns.forEach((b) => b.classList.remove("active"));
+    // Add active class to clicked button
+    btn.classList.add("active");
+
+    const ratio = btn.dataset.ratio;
+
+    // Update map container dimensions based on ratio
+    switch (ratio) {
+      case "4x4":
+        mapContainer.style.width = "400px";
+        mapContainer.style.height = "400px";
+        break;
+      case "11x14":
+        mapContainer.style.width = "440px";
+        mapContainer.style.height = "560px";
+        break;
+      case "16x16":
+        mapContainer.style.width = "480px";
+        mapContainer.style.height = "480px";
+        break;
+      case "20x20":
+        mapContainer.style.width = "500px";
+        mapContainer.style.height = "500px";
+        break;
+    }
+
+    // Trigger map resize
+    beforeMap.resize();
+    afterMap.resize();
+  });
 });

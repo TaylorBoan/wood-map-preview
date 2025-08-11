@@ -33,8 +33,10 @@ body {
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
 .controls-content {
@@ -42,16 +44,65 @@ body {
     width: 100%;
 }
 
+.aspect-selector {
+    display: flex;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.aspect-btn {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin: 0;
+    width: auto;
+    max-width: none;
+    border-radius: 0;
+}
+
+.aspect-btn:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.aspect-btn:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.aspect-btn:not(:first-child) {
+    border-left: none;
+}
+
+.aspect-btn:hover {
+    background-color: #e9ecef;
+}
+
+.aspect-btn.active {
+    background-color: #1a73e8;
+    color: white;
+}
+
 .map-container {
     position: relative;
-    width: 550px; /* 11 units */
-    height: 700px; /* 14 units */
+    width: 500px;
+    height: 650px;
+    max-width: 90%;
+    max-height: 90%;
 }
 
 #comparison-container {
     position: relative;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 #left,
@@ -59,23 +110,34 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .compare-map {
     position: absolute;
     top: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
+    height: 100%;
 }
 
 /* Override Mapbox Compare plugin's vertical orientation */
 .mapboxgl-compare {
     width: 2px;
-    height: 100%;
-    position: absolute;
+    height: 100% !important;
+    position: absolute !important;
     z-index: 2;
     background-color: #3887be;
     cursor: ew-resize !important;
+    top: 0 !important;
+    left: 50% !important;
+}
+
+.mapboxgl-compare .compare-swiper-vertical {
+    display: none !important;
 }
 
 .circle {
