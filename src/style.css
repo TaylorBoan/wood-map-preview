@@ -276,3 +276,7 @@ button:hover {
 .map-wrapper {
     outline: 1px solid magenta;
 }
+
+.pad-scroll {
+    pointer-events: none;
+}
