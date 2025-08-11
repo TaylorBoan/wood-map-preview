@@ -108,6 +108,37 @@ body {
     word-break: break-all;
 }
 
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.zoom-btn {
+    width: 32px;
+    height: 32px;
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin: 0;
+    max-width: none;
+    padding: 0;
+}
+
+.zoom-btn:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
 #comparison-container {
     position: relative;
     height: 100%;
@@ -268,13 +299,6 @@ button:hover {
     height: 100% !important;
     display: block; /* avoid any inline-element gaps */
     box-sizing: border-box;
-}
-
-/* debug */
-#comparison-container,
-.map-container,
-.map-wrapper {
-    outline: 1px solid magenta;
 }
 
 .pad-scroll {

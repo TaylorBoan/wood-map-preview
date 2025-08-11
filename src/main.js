@@ -25,6 +25,10 @@ document.querySelector("#app").innerHTML = `
     <div class="bounding-box-display" id="bounding-box-display">
       Bounds: Loading...
     </div>
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-in-btn">+</button>
+      <button class="zoom-btn" id="zoom-out-btn">-</button>
+    </div>
   </div>
 
   <div class="controls-panel">
@@ -247,4 +251,17 @@ aspectBtns.forEach((btn) => {
     beforeMap.resize();
     afterMap.resize();
   });
+});
+
+// Handle zoom controls
+document.getElementById("zoom-in-btn").addEventListener("click", () => {
+  const currentZoom = beforeMap.getZoom();
+  beforeMap.setZoom(currentZoom + 1);
+  afterMap.setZoom(currentZoom + 1);
+});
+
+document.getElementById("zoom-out-btn").addEventListener("click", () => {
+  const currentZoom = beforeMap.getZoom();
+  beforeMap.setZoom(currentZoom - 1);
+  afterMap.setZoom(currentZoom - 1);
 });
