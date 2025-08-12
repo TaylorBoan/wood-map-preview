@@ -119,10 +119,22 @@ body {
     margin-top: 10px;
 }
 
+.map-zoom-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 0;
+    pointer-events: auto;
+}
+
 .zoom-btn {
     width: 32px;
     height: 32px;
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, 0.9);
     color: #333;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -136,11 +148,17 @@ body {
     margin: 0;
     max-width: none;
     padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
 }
 
 .zoom-btn:hover {
-    background-color: #e9ecef;
+    background-color: rgba(233, 236, 239, 0.95);
     border-color: #ccc;
+}
+
+.map-wrapper {
+    position: relative;
 }
 
 .modal-overlay {
@@ -342,7 +360,11 @@ body {
     font-family: "Trajan Pro", serif;
     font-size: 12px;
     text-align: right;
-    flex: 1;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
 }
 
 #comparison-container {

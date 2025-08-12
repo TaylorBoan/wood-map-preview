@@ -30,14 +30,14 @@ document.querySelector("#app").innerHTML = `
         <div class="pad-scroll scrl-right"></div>
         <div class="pad-scroll scrl-top"></div>
         <div class="pad-scroll scrl-bot"></div>
+        <div class="zoom-controls map-zoom-controls" id="map-zoom-controls">
+          <button class="zoom-btn" id="zoom-in-btn">+</button>
+          <button class="zoom-btn" id="zoom-out-btn">-</button>
+        </div>
       </div>
     </div>
     <div class="bounding-box-display" id="bounding-box-display">
       Bounds: Loading...
-    </div>
-    <div class="zoom-controls">
-      <button class="zoom-btn" id="zoom-in-btn">+</button>
-      <button class="zoom-btn" id="zoom-out-btn">-</button>
     </div>
   </div>
 
@@ -251,7 +251,7 @@ const afterMap = new mapboxgl.Map({
 // Initialize the map comparison slider
 const container = "#comparison-container";
 const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
-  mousemove: true,
+  mousemove: false,
   orientation: "vertical",
 });
 
@@ -369,12 +369,12 @@ const TITLE_POSITION_SETTINGS = {
     subtitleHorizontalPadding: "15px",
   },
   "11x14": {
-    titleFontSize: "16px",
+    titleFontSize: "25px",
     subtitleFontSize: "12px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
-    titleHorizontalPadding: "20px",
-    subtitleHorizontalPadding: "20px",
+    titleHorizontalPadding: "15px",
+    subtitleHorizontalPadding: "50px",
   },
   "16x16": {
     titleFontSize: "30px",
@@ -564,3 +564,16 @@ aspectBtns.forEach((btn) => {
 
 // Initialize overlay margins for default selection (11x14)
 updateOverlayMargins("11x14");
+
+// Handle zoom controls
+document.getElementById("zoom-in-btn").addEventListener("click", () => {
+  const currentZoom = beforeMap.getZoom();
+  beforeMap.setZoom(currentZoom + 1);
+  afterMap.setZoom(currentZoom + 1);
+});
+
+document.getElementById("zoom-out-btn").addEventListener("click", () => {
+  const currentZoom = beforeMap.getZoom();
+  beforeMap.setZoom(currentZoom - 1);
+  afterMap.setZoom(currentZoom - 1);
+});
