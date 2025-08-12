@@ -339,47 +339,100 @@ const MARGIN_SETTINGS = {
     bottom: "60px",
   },
   "11x14": {
-    top: "40px",
+    top: "25px",
+    left: "20px",
+    right: "20px",
+    bottom: "60px",
+  },
+  "16x16": {
+    top: "30px",
+    left: "25px",
+    right: "25px",
+    bottom: "70px",
+  },
+  "20x20": {
+    top: "35px",
     left: "30px",
     right: "30px",
     bottom: "80px",
   },
+};
+
+// TITLE POSITIONING CONFIGURATION - Adjust these values to customize title/subtitle positions
+const TITLE_POSITION_SETTINGS = {
+  "4x4": {
+    titleFontSize: "14px",
+    subtitleFontSize: "10px",
+    titleVerticalAlign: "center",
+    subtitleVerticalAlign: "center",
+    titleHorizontalPadding: "15px",
+    subtitleHorizontalPadding: "15px",
+  },
+  "11x14": {
+    titleFontSize: "16px",
+    subtitleFontSize: "12px",
+    titleVerticalAlign: "center",
+    subtitleVerticalAlign: "center",
+    titleHorizontalPadding: "20px",
+    subtitleHorizontalPadding: "20px",
+  },
   "16x16": {
-    top: "45px",
-    left: "35px",
-    right: "35px",
-    bottom: "90px",
+    titleFontSize: "18px",
+    subtitleFontSize: "14px",
+    titleVerticalAlign: "center",
+    subtitleVerticalAlign: "center",
+    titleHorizontalPadding: "25px",
+    subtitleHorizontalPadding: "25px",
   },
   "20x20": {
-    top: "50px",
-    left: "40px",
-    right: "40px",
-    bottom: "100px",
+    titleFontSize: "20px",
+    subtitleFontSize: "16px",
+    titleVerticalAlign: "center",
+    subtitleVerticalAlign: "center",
+    titleHorizontalPadding: "30px",
+    subtitleHorizontalPadding: "30px",
   },
 };
 
-// Update aspect ratio function to also adjust overlay margins
+// Update aspect ratio function to also adjust overlay margins and title positioning
 function updateOverlayMargins(ratio) {
   const overlay = document.getElementById("map-overlay");
   const marginTop = overlay.querySelector(".map-margin-top");
   const marginLeft = overlay.querySelector(".map-margin-left");
   const marginRight = overlay.querySelector(".map-margin-right");
   const titleArea = overlay.querySelector(".map-title-area");
+  const titleDisplay = overlay.querySelector(".map-title-display");
+  const subtitleDisplay = overlay.querySelector(".map-subtitle-display");
 
-  const settings = MARGIN_SETTINGS[ratio];
-  if (settings) {
-    marginTop.style.height = settings.top;
-    marginLeft.style.width = settings.left;
-    marginRight.style.width = settings.right;
-    titleArea.style.height = settings.bottom;
+  const marginSettings = MARGIN_SETTINGS[ratio];
+  const titleSettings = TITLE_POSITION_SETTINGS[ratio];
+
+  if (marginSettings) {
+    marginTop.style.height = marginSettings.top;
+    marginLeft.style.width = marginSettings.left;
+    marginRight.style.width = marginSettings.right;
+    titleArea.style.height = marginSettings.bottom;
 
     // Update the left and right margin heights to account for new top/bottom sizes
-    const topHeight = parseInt(settings.top);
-    const bottomHeight = parseInt(settings.bottom);
+    const topHeight = parseInt(marginSettings.top);
+    const bottomHeight = parseInt(marginSettings.bottom);
     marginLeft.style.height = `calc(100% - ${topHeight + bottomHeight}px)`;
     marginRight.style.height = `calc(100% - ${topHeight + bottomHeight}px)`;
-    marginLeft.style.top = settings.top;
-    marginRight.style.top = settings.top;
+    marginLeft.style.top = marginSettings.top;
+    marginRight.style.top = marginSettings.top;
+  }
+
+  if (titleSettings) {
+    // Update title positioning
+    titleDisplay.style.fontSize = titleSettings.titleFontSize;
+    titleDisplay.style.alignSelf = titleSettings.titleVerticalAlign;
+    titleDisplay.style.paddingLeft = titleSettings.titleHorizontalPadding;
+
+    // Update subtitle positioning
+    subtitleDisplay.style.fontSize = titleSettings.subtitleFontSize;
+    subtitleDisplay.style.alignSelf = titleSettings.subtitleVerticalAlign;
+    subtitleDisplay.style.paddingRight =
+      titleSettings.subtitleHorizontalPadding;
   }
 }
 
