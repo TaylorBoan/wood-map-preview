@@ -39,6 +39,10 @@ document.querySelector("#app").innerHTML = `
     <div class="bounding-box-display" id="bounding-box-display">
       Bounds: Loading...
     </div>
+    <div class="view-mode-selector">
+      <button class="view-mode-btn active" data-mode="map">Map View</button>
+      <button class="view-mode-btn" data-mode="design">Design View</button>
+    </div>
   </div>
 
   <!-- Initial popup modal -->
@@ -564,6 +568,21 @@ aspectBtns.forEach((btn) => {
 
 // Initialize overlay margins for default selection (11x14)
 updateOverlayMargins("11x14");
+
+// Handle view mode selection
+const viewModeBtns = document.querySelectorAll(".view-mode-btn");
+viewModeBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    // Remove active class from all buttons
+    viewModeBtns.forEach((b) => b.classList.remove("active"));
+    // Add active class to clicked button
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    // TODO: Add view mode switching logic here
+    console.log("View mode:", mode);
+  });
+});
 
 // Handle zoom controls
 document.getElementById("zoom-in-btn").addEventListener("click", () => {

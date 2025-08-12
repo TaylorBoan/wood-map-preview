@@ -90,7 +90,7 @@ body {
 }
 
 .aspect-btn.active {
-    background-color: #6c757d;
+    background-color: #495057;
     color: white;
 }
 
@@ -110,6 +110,42 @@ body {
     font-family: monospace;
     max-width: 100%;
     word-break: break-all;
+}
+
+.view-mode-selector {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.view-mode-btn {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin: 0;
+    width: 150px;
+    max-width: none;
+    border-radius: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.view-mode-btn:hover {
+    background-color: #e9ecef;
+}
+
+.view-mode-btn.active {
+    background-color: #495057;
+    color: white;
+}
+
+.view-mode-btn:not(:first-child) {
+    border-left: none;
 }
 
 .zoom-controls {
