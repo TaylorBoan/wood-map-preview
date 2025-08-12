@@ -72,6 +72,74 @@ document.querySelector("#app").innerHTML = `
       </div>
 
       <div class="form-group">
+        <label for="icon-selector">Select Icon</label>
+        <div class="icon-selector-container">
+          <div class="icon-scroll" id="icon-scroll">
+            <div class="icon-option" data-icon="None">
+              <div class="no-icon">No Icon</div>
+            </div>
+            <div class="icon-option" data-icon="motorcycle">
+              <img src="/src/Icons/00518-Sport-Motorcycle-CF-1-580x387.jpg" alt="Motorcycle">
+            </div>
+            <div class="icon-option" data-icon="tree">
+              <img src="/src/Icons/1000_F_202931317_7JlNhRZeTnZANztKPhn4bVvpC4HvAPi8.jpg" alt="Tree">
+            </div>
+            <div class="icon-option" data-icon="graduation">
+              <img src="/src/Icons/106436.webp" alt="Graduation">
+            </div>
+            <div class="icon-option" data-icon="house">
+              <img src="/src/Icons/1638076-200.png" alt="House">
+            </div>
+            <div class="icon-option" data-icon="school">
+              <img src="/src/Icons/1647.png" alt="School">
+            </div>
+            <div class="icon-option" data-icon="mountain">
+              <img src="/src/Icons/2117138-200.png" alt="Mountain">
+            </div>
+            <div class="icon-option" data-icon="car">
+              <img src="/src/Icons/360_F_316764111_17NQovMYqQSzpf9gNr5lnc1lbcD1qdhh.jpg" alt="Car">
+            </div>
+            <div class="icon-option" data-icon="dog">
+              <img src="/src/Icons/360_F_485686916_USM1VciJsb34P0vsCTHI4Gx3GJLHBwzl.jpg" alt="Dog">
+            </div>
+            <div class="icon-option" data-icon="compass">
+              <img src="/src/Icons/484167.png" alt="Compass">
+            </div>
+            <div class="icon-option" data-icon="plane">
+              <img src="/src/Icons/Plane_icon.svg.png" alt="Plane">
+            </div>
+            <div class="icon-option" data-icon="real-estate">
+              <img src="/src/Icons/Real_Estate__28101_29.jpg" alt="Real Estate">
+            </div>
+            <div class="icon-option" data-icon="cake">
+              <img src="/src/Icons/birthday-cake-icon-vector-happy-260nw-698609965.jpg.webp" alt="Birthday Cake">
+            </div>
+            <div class="icon-option" data-icon="hiking">
+              <img src="/src/Icons/depositphotos_461871716-stock-illustration-highland-hiking-mountains-icon-outline.jpg" alt="Hiking">
+            </div>
+            <div class="icon-option" data-icon="heart">
+              <img src="/src/Icons/heart-15.png" alt="Heart">
+            </div>
+            <div class="icon-option" data-icon="church">
+              <img src="/src/Icons/illustration-of-church-icon-free-vector.jpg" alt="Church">
+            </div>
+            <div class="icon-option" data-icon="star">
+              <img src="/src/Icons/images-2.png" alt="Star">
+            </div>
+            <div class="icon-option" data-icon="location">
+              <img src="/src/Icons/images.png" alt="Location">
+            </div>
+            <div class="icon-option" data-icon="guitar">
+              <img src="/src/Icons/istockphoto-490716348-612x612.jpg" alt="Guitar">
+            </div>
+            <div class="icon-option" data-icon="wedding">
+              <img src="/src/Icons/wedding-icon-wedding-rings-black-icon-wedding-symbol-vector-illustration-wedding-icon-wedding-rings-black-icon-wedding-symbol-184832891.jpg.webp" alt="Wedding">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="comments">Any Other Comments</label>
         <input type="text" id="comments" placeholder="Any additional comments">
       </div>
@@ -202,6 +270,9 @@ geocoder.on("result", (e) => {
   afterMap.flyTo({ center: coords, zoom: 14 });
 });
 
+// Variable to store the red dot marker
+let redDotMarker = null;
+
 // Function to update bounding box display
 function updateBoundingBoxDisplay() {
   const bounds = beforeMap.getBounds();
@@ -213,6 +284,77 @@ function updateBoundingBoxDisplay() {
 beforeMap.on("moveend", updateBoundingBoxDisplay);
 beforeMap.on("load", updateBoundingBoxDisplay);
 
+// Handle icon selection
+const iconOptions = document.querySelectorAll(".icon-option");
+iconOptions.forEach((option) => {
+  option.addEventListener("click", () => {
+    // Remove selected class from all options
+    iconOptions.forEach((opt) => opt.classList.remove("selected"));
+    // Add selected class to clicked option
+    option.classList.add("selected");
+  });
+});
+
+// Set default selection to "No Icon"
+document
+  .querySelector('.icon-option[data-icon="None"]')
+  .classList.add("selected");
+
+// Function to place red dot marker based on address
+function placeRedDotMarker(address) {
+  if (!address.trim()) {
+    // Remove marker if address is empty
+    if (redDotMarker) {
+      redDotMarker.remove();
+      redDotMarker = null;
+    }
+    return;
+  }
+
+  // Use Mapbox Geocoding API to get coordinates from address
+  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}&limit=1`;
+
+  fetch(geocodingUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.features && data.features.length > 0) {
+        const coords = data.features[0].center;
+
+        // Remove existing marker if it exists
+        if (redDotMarker) {
+          redDotMarker.remove();
+        }
+
+        // Create red dot marker
+        const redDotElement = document.createElement("div");
+        redDotElement.className = "red-dot-marker";
+
+        // Add marker to both maps
+        redDotMarker = new mapboxgl.Marker(redDotElement)
+          .setLngLat(coords)
+          .addTo(beforeMap);
+
+        // Also add to the right map
+        new mapboxgl.Marker(redDotElement.cloneNode(true))
+          .setLngLat(coords)
+          .addTo(afterMap);
+      }
+    })
+    .catch((error) => {
+      console.error("Geocoding error:", error);
+    });
+}
+
+// Add event listener to marker address input
+document.getElementById("marker-address").addEventListener("input", (e) => {
+  const address = e.target.value;
+  // Debounce the geocoding requests
+  clearTimeout(window.geocodeTimeout);
+  window.geocodeTimeout = setTimeout(() => {
+    placeRedDotMarker(address);
+  }, 500);
+});
+
 // Handle form submission
 document.getElementById("submit-button").addEventListener("click", () => {
   const bounds = beforeMap.getBounds();
@@ -221,6 +363,8 @@ document.getElementById("submit-button").addEventListener("click", () => {
   const orderNumber = document.getElementById("order").value;
   const markerAddress = document.getElementById("marker-address").value;
   const comments = document.getElementById("comments").value;
+  const selectedIcon =
+    document.querySelector(".icon-option.selected")?.dataset.icon || "None";
   const center = beforeMap.getCenter();
 
   const emailBody = `
@@ -229,6 +373,7 @@ document.getElementById("submit-button").addEventListener("click", () => {
         Title: ${title}
         Subtitle: ${subtitle}
         Marker Address: ${markerAddress}
+        Selected Icon: ${selectedIcon}
         Comments: ${comments}
         Bounds: ${JSON.stringify(bounds)}
         Center: ${JSON.stringify(center)}
@@ -276,27 +421,4 @@ aspectBtns.forEach((btn) => {
     beforeMap.resize();
     afterMap.resize();
   });
-});
-
-// Handle zoom controls
-document.getElementById("zoom-in-btn").addEventListener("click", () => {
-  const currentZoom = beforeMap.getZoom();
-  beforeMap.setZoom(currentZoom + 1);
-  afterMap.setZoom(currentZoom + 1);
-});
-
-document.getElementById("zoom-out-btn").addEventListener("click", () => {
-  const currentZoom = beforeMap.getZoom();
-  beforeMap.setZoom(currentZoom - 1);
-  afterMap.setZoom(currentZoom - 1);
-});
-
-// Show initial popup when page loads
-window.addEventListener("load", () => {
-  document.getElementById("initial-modal").style.display = "flex";
-});
-
-// Close popup when button is clicked
-document.getElementById("close-modal").addEventListener("click", () => {
-  document.getElementById("initial-modal").style.display = "none";
 });
