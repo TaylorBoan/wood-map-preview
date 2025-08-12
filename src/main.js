@@ -254,7 +254,7 @@ const afterMap = new mapboxgl.Map({
 
 // Initialize the map comparison slider
 const container = "#comparison-container";
-const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
+const compare = new mapboxgl.Compare(beforeMap, afterMap, container, {
   mousemove: false,
   orientation: "vertical",
 });
@@ -262,7 +262,7 @@ const map = new mapboxgl.Compare(beforeMap, afterMap, container, {
 // Delete Me once the slider is working
 afterMap.on("load", () => {
   beforeMap.once("load", () => {
-    compare.setSlider(100); // hard-right
+    compare.setSlider(10000); // hard-right
   });
 });
 
@@ -579,8 +579,16 @@ viewModeBtns.forEach((btn) => {
     btn.classList.add("active");
 
     const mode = btn.dataset.mode;
-    // TODO: Add view mode switching logic here
-    console.log("View mode:", mode);
+    const comparisonContainer = document.getElementById("comparison-container");
+    const handle = comparisonContainer.querySelector(".compare-handle");
+
+    if (mode === "map") {
+      // Set slider all the way to the left (0% shows left map)
+      compare.setSlider(0);
+    } else if (mode === "design") {
+      // Set slider all the way to the right (100% shows right map)
+      compare.setSlider(100);
+    }
   });
 });
 
