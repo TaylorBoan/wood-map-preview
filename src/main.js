@@ -21,6 +21,15 @@ document.querySelector("#app").innerHTML = `
         <div class="pad-scroll scrl-top"></div>
         <div class="pad-scroll scrl-bot"></div>
       </div>
+      <div class="map-overlay" id="map-overlay">
+        <div class="map-margin-top"></div>
+        <div class="map-margin-left"></div>
+        <div class="map-margin-right"></div>
+        <div class="map-title-area">
+          <div class="map-title-display" id="map-title-display"></div>
+          <div class="map-subtitle-display" id="map-subtitle-display"></div>
+        </div>
+      </div>
     </div>
     <div class="bounding-box-display" id="bounding-box-display">
       Bounds: Loading...
@@ -300,6 +309,62 @@ document
   .querySelector('.icon-option[data-icon="None"]')
   .classList.add("selected");
 
+// Function to update title display
+function updateTitleDisplay() {
+  const title = document.getElementById("title").value;
+  const subtitle = document.getElementById("subtitle").value;
+
+  document.getElementById("map-title-display").textContent =
+    title || "Map Title";
+  document.getElementById("map-subtitle-display").textContent =
+    subtitle || "Map Subtitle";
+}
+
+// Add event listeners for title/subtitle inputs
+document.getElementById("title").addEventListener("input", updateTitleDisplay);
+document
+  .getElementById("subtitle")
+  .addEventListener("input", updateTitleDisplay);
+
+// Initialize title display
+updateTitleDisplay();
+
+// Update aspect ratio function to also adjust overlay margins
+function updateOverlayMargins(ratio) {
+  const overlay = document.getElementById("map-overlay");
+  const marginTop = overlay.querySelector(".map-margin-top");
+  const marginLeft = overlay.querySelector(".map-margin-left");
+  const marginRight = overlay.querySelector(".map-margin-right");
+  const titleArea = overlay.querySelector(".map-title-area");
+
+  switch (ratio) {
+    case "4x4":
+      marginTop.style.height = "30px";
+      marginLeft.style.width = "25px";
+      marginRight.style.width = "25px";
+      titleArea.style.height = "60px";
+      break;
+    case "11x14":
+      marginTop.style.height = "40px";
+      marginLeft.style.width = "30px";
+      marginRight.style.width = "30px";
+      titleArea.style.height = "80px";
+      break;
+    case "16x16":
+      marginTop.style.height = "45px";
+      marginLeft.style.width = "35px";
+      marginRight.style.width = "35px";
+      titleArea.style.height = "90px";
+      break;
+    case "20x20":
+      marginTop.style.height = "50px";
+      marginLeft.style.width = "40px";
+      marginRight.style.width = "40px";
+      titleArea.style.height = "100px";
+      break;
+  }
+}
+
 // Function to place red dot marker based on address
 function placeRedDotMarker(address) {
   if (!address.trim()) {
@@ -417,8 +482,14 @@ aspectBtns.forEach((btn) => {
         break;
     }
 
+    // Update overlay margins
+    updateOverlayMargins(ratio);
+
     // Trigger map resize
     beforeMap.resize();
     afterMap.resize();
   });
 });
+
+// Initialize overlay margins for default selection (11x14)
+updateOverlayMargins("11x14");
