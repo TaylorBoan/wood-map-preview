@@ -31,6 +31,17 @@ document.querySelector("#app").innerHTML = `
     </div>
   </div>
 
+  <!-- Initial popup modal -->
+  <div class="modal-overlay" id="initial-modal">
+    <div class="modal-content">
+      <h3>JUST FYI</h3>
+      <p>This is just a preview. Your actual design will almost always contain more detail than what you see here.</p>
+      <p>We will always send you a final preview before we begin engraving.</p>
+      <p>For more questions click on the i icon.</p>
+      <button class="modal-close-btn" id="close-modal">Got it!</button>
+    </div>
+  </div>
+
   <div class="controls-panel">
     <div class="controls-content">
       <h2>Wood Map Preview</h2>
@@ -53,6 +64,16 @@ document.querySelector("#app").innerHTML = `
       <div class="form-group">
         <label for="order">Order Number</label>
         <input type="text" id="order" placeholder="Enter order number">
+      </div>
+
+      <div class="form-group">
+        <label for="marker-address">Marker Address</label>
+        <input type="text" id="marker-address" placeholder="Enter marker address">
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Any Other Comments</label>
+        <input type="text" id="comments" placeholder="Any additional comments">
       </div>
 
       <button id="submit-button">Submit Map Selection</button>
@@ -198,6 +219,8 @@ document.getElementById("submit-button").addEventListener("click", () => {
   const title = document.getElementById("title").value;
   const subtitle = document.getElementById("subtitle").value;
   const orderNumber = document.getElementById("order").value;
+  const markerAddress = document.getElementById("marker-address").value;
+  const comments = document.getElementById("comments").value;
   const center = beforeMap.getCenter();
 
   const emailBody = `
@@ -205,6 +228,8 @@ document.getElementById("submit-button").addEventListener("click", () => {
         Order Number: ${orderNumber}
         Title: ${title}
         Subtitle: ${subtitle}
+        Marker Address: ${markerAddress}
+        Comments: ${comments}
         Bounds: ${JSON.stringify(bounds)}
         Center: ${JSON.stringify(center)}
         Zoom: ${beforeMap.getZoom()}
@@ -264,4 +289,14 @@ document.getElementById("zoom-out-btn").addEventListener("click", () => {
   const currentZoom = beforeMap.getZoom();
   beforeMap.setZoom(currentZoom - 1);
   afterMap.setZoom(currentZoom - 1);
+});
+
+// Show initial popup when page loads
+window.addEventListener("load", () => {
+  document.getElementById("initial-modal").style.display = "flex";
+});
+
+// Close popup when button is clicked
+document.getElementById("close-modal").addEventListener("click", () => {
+  document.getElementById("initial-modal").style.display = "none";
 });
