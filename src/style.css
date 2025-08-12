@@ -320,22 +320,23 @@ body {
     height: 80px;
     background-color: #f8f9fa;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     color: #333;
+    padding: 0 20px;
 }
 
 .map-title-display {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
-    text-align: center;
+    text-align: left;
+    flex: 1;
 }
 
 .map-subtitle-display {
     font-size: 12px;
-    text-align: center;
+    text-align: right;
+    flex: 1;
 }
 
 #comparison-container {

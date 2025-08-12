@@ -15,20 +15,21 @@ document.querySelector("#app").innerHTML = `
       <div id="comparison-container">
         <div id="left" class="compare-map">
         </div>
-        <div id="right" class="compare-map"></div>
+        <div id="right" class="compare-map">
+          <div class="map-overlay" id="map-overlay">
+            <div class="map-margin-top"></div>
+            <div class="map-margin-left"></div>
+            <div class="map-margin-right"></div>
+            <div class="map-title-area">
+              <div class="map-title-display" id="map-title-display"></div>
+              <div class="map-subtitle-display" id="map-subtitle-display"></div>
+            </div>
+          </div>
+        </div>
         <div class="pad-scroll scrl-left"></div>
         <div class="pad-scroll scrl-right"></div>
         <div class="pad-scroll scrl-top"></div>
         <div class="pad-scroll scrl-bot"></div>
-      </div>
-      <div class="map-overlay" id="map-overlay">
-        <div class="map-margin-top"></div>
-        <div class="map-margin-left"></div>
-        <div class="map-margin-right"></div>
-        <div class="map-title-area">
-          <div class="map-title-display" id="map-title-display"></div>
-          <div class="map-subtitle-display" id="map-subtitle-display"></div>
-        </div>
       </div>
     </div>
     <div class="bounding-box-display" id="bounding-box-display">
@@ -329,6 +330,34 @@ document
 // Initialize title display
 updateTitleDisplay();
 
+// MARGIN CONFIGURATION - Adjust these values to customize margins for each aspect ratio
+const MARGIN_SETTINGS = {
+  "4x4": {
+    top: "30px",
+    left: "25px",
+    right: "25px",
+    bottom: "60px",
+  },
+  "11x14": {
+    top: "40px",
+    left: "30px",
+    right: "30px",
+    bottom: "80px",
+  },
+  "16x16": {
+    top: "45px",
+    left: "35px",
+    right: "35px",
+    bottom: "90px",
+  },
+  "20x20": {
+    top: "50px",
+    left: "40px",
+    right: "40px",
+    bottom: "100px",
+  },
+};
+
 // Update aspect ratio function to also adjust overlay margins
 function updateOverlayMargins(ratio) {
   const overlay = document.getElementById("map-overlay");
@@ -337,31 +366,20 @@ function updateOverlayMargins(ratio) {
   const marginRight = overlay.querySelector(".map-margin-right");
   const titleArea = overlay.querySelector(".map-title-area");
 
-  switch (ratio) {
-    case "4x4":
-      marginTop.style.height = "30px";
-      marginLeft.style.width = "25px";
-      marginRight.style.width = "25px";
-      titleArea.style.height = "60px";
-      break;
-    case "11x14":
-      marginTop.style.height = "40px";
-      marginLeft.style.width = "30px";
-      marginRight.style.width = "30px";
-      titleArea.style.height = "80px";
-      break;
-    case "16x16":
-      marginTop.style.height = "45px";
-      marginLeft.style.width = "35px";
-      marginRight.style.width = "35px";
-      titleArea.style.height = "90px";
-      break;
-    case "20x20":
-      marginTop.style.height = "50px";
-      marginLeft.style.width = "40px";
-      marginRight.style.width = "40px";
-      titleArea.style.height = "100px";
-      break;
+  const settings = MARGIN_SETTINGS[ratio];
+  if (settings) {
+    marginTop.style.height = settings.top;
+    marginLeft.style.width = settings.left;
+    marginRight.style.width = settings.right;
+    titleArea.style.height = settings.bottom;
+
+    // Update the left and right margin heights to account for new top/bottom sizes
+    const topHeight = parseInt(settings.top);
+    const bottomHeight = parseInt(settings.bottom);
+    marginLeft.style.height = `calc(100% - ${topHeight + bottomHeight}px)`;
+    marginRight.style.height = `calc(100% - ${topHeight + bottomHeight}px)`;
+    marginLeft.style.top = settings.top;
+    marginRight.style.top = settings.top;
   }
 }
 
