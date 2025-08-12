@@ -377,20 +377,20 @@ const TITLE_POSITION_SETTINGS = {
     subtitleHorizontalPadding: "20px",
   },
   "16x16": {
-    titleFontSize: "18px",
-    subtitleFontSize: "14px",
+    titleFontSize: "30px",
+    subtitleFontSize: "15px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
     titleHorizontalPadding: "25px",
-    subtitleHorizontalPadding: "25px",
+    subtitleHorizontalPadding: "55px",
   },
   "20x20": {
-    titleFontSize: "20px",
-    subtitleFontSize: "16px",
+    titleFontSize: "35px",
+    subtitleFontSize: "13px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
     titleHorizontalPadding: "30px",
-    subtitleHorizontalPadding: "30px",
+    subtitleHorizontalPadding: "65px",
   },
 };
 
@@ -536,20 +536,20 @@ aspectBtns.forEach((btn) => {
     // Using a scale factor to make larger ratios proportionally bigger
     switch (ratio) {
       case "4x4":
-        mapContainer.style.width = "320px";
-        mapContainer.style.height = "320px";
+        mapContainer.style.width = "150px";
+        mapContainer.style.height = "150px";
         break;
       case "11x14":
-        mapContainer.style.width = "385px";
-        mapContainer.style.height = "490px";
+        mapContainer.style.width = "412px";
+        mapContainer.style.height = "525px";
         break;
       case "16x16":
-        mapContainer.style.width = "480px";
-        mapContainer.style.height = "480px";
+        mapContainer.style.width = "600px";
+        mapContainer.style.height = "600px";
         break;
       case "20x20":
-        mapContainer.style.width = "560px";
-        mapContainer.style.height = "560px";
+        mapContainer.style.width = "750px";
+        mapContainer.style.height = "750px";
         break;
     }
 

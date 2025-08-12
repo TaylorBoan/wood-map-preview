@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Trajan+Pro:wght@400&display=swap");
+
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -329,13 +331,15 @@ body {
 }
 
 .map-title-display {
+    font-family: "Trajan Pro", serif;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 400;
     text-align: left;
     flex: 1;
 }
 
 .map-subtitle-display {
+    font-family: "Trajan Pro", serif;
     font-size: 12px;
     text-align: right;
     flex: 1;
