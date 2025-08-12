@@ -49,10 +49,10 @@ document.querySelector("#app").innerHTML = `
   <div class="modal-overlay" id="initial-modal">
     <div class="modal-content">
       <h3>JUST FYI</h3>
-      <p>This is just a preview. Your actual design will almost always contain more detail than what you see here.</p>
+      <p>This is just a preview.</p>
+      <p>Your actual design will almost always contain more detail than what you see here, including all red lines at any zoom level.</p>
       <p>We will always send you a final preview before we begin engraving.</p>
-      <p>For more questions click on the i icon.</p>
-      <button class="modal-close-btn" id="close-modal">Got it!</button>
+      <button id="close-modal" class="modal-close-btn">Got it!</button>
     </div>
   </div>
 
@@ -257,6 +257,17 @@ const container = "#comparison-container";
 const compare = new mapboxgl.Compare(beforeMap, afterMap, container, {
   mousemove: false,
   orientation: "vertical",
+});
+
+// Show FYI modal on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("initial-modal");
+  if (modal) modal.style.display = "flex";
+
+  // Close modal when button clicked
+  document.getElementById("close-modal").addEventListener("click", () => {
+    document.getElementById("initial-modal").style.display = "none";
+  });
 });
 
 // Delete Me once the slider is working
