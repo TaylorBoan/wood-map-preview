@@ -262,7 +262,7 @@ const compare = new mapboxgl.Compare(beforeMap, afterMap, container, {
 // Delete Me once the slider is working
 afterMap.on("load", () => {
   beforeMap.once("load", () => {
-    compare.setSlider(10000); // hard-right
+    compare.setSlider(1000); // hard-right
   });
 });
 
@@ -337,25 +337,25 @@ updateTitleDisplay();
 // MARGIN CONFIGURATION - Adjust these values to customize margins for each aspect ratio
 const MARGIN_SETTINGS = {
   "4x4": {
-    top: "30px",
-    left: "25px",
-    right: "25px",
-    bottom: "60px",
+    top: "15px",
+    left: "15px",
+    right: "15px",
+    bottom: "30px",
   },
   "11x14": {
-    top: "25px",
+    top: "20px",
     left: "20px",
     right: "20px",
     bottom: "60px",
   },
   "16x16": {
-    top: "30px",
+    top: "25px",
     left: "25px",
     right: "25px",
     bottom: "70px",
   },
   "20x20": {
-    top: "35px",
+    top: "30px",
     left: "30px",
     right: "30px",
     bottom: "80px",
@@ -365,12 +365,12 @@ const MARGIN_SETTINGS = {
 // TITLE POSITIONING CONFIGURATION - Adjust these values to customize title/subtitle positions
 const TITLE_POSITION_SETTINGS = {
   "4x4": {
-    titleFontSize: "14px",
-    subtitleFontSize: "10px",
+    titleFontSize: "12px",
+    subtitleFontSize: "5px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
-    titleHorizontalPadding: "15px",
-    subtitleHorizontalPadding: "15px",
+    titleHorizontalPadding: "1px",
+    subtitleHorizontalPadding: "40px",
   },
   "11x14": {
     titleFontSize: "25px",
@@ -390,7 +390,7 @@ const TITLE_POSITION_SETTINGS = {
   },
   "20x20": {
     titleFontSize: "35px",
-    subtitleFontSize: "13px",
+    subtitleFontSize: "18px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
     titleHorizontalPadding: "30px",
@@ -584,10 +584,10 @@ viewModeBtns.forEach((btn) => {
 
     if (mode === "map") {
       // Set slider all the way to the left (0% shows left map)
-      compare.setSlider(0);
+      compare.setSlider(1000);
     } else if (mode === "design") {
       // Set slider all the way to the right (100% shows right map)
-      compare.setSlider(100);
+      compare.setSlider(0);
     }
   });
 });
