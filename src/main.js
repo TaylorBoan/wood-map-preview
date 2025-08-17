@@ -174,13 +174,15 @@ document.querySelector("#app").innerHTML = `
 const beforeMap = new mapboxgl.Map({
   container: "left",
   style: "mapbox://styles/mapbox/streets-v12",
-  center: [-74.5, 40],
-  zoom: 9,
+  center: [-73.9857, 40.7484], // Empire State Building coordinates
+  zoom: 12,
 });
 
 // Initialize the after (right) map with custom styling
 const afterMap = new mapboxgl.Map({
   container: "right",
+  center: [-73.9857, 40.7484], // Empire State Building coordinates
+  zoom: 12,
   style: {
     version: 8,
     sources: {
