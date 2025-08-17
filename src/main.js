@@ -159,6 +159,13 @@ document.querySelector("#app").innerHTML = `
       </div>
 
       <button id="submit-button">Submit Map Selection</button>
+      <div class="bounding-box-toggle">
+        <button id="toggle-bbox-input" class="toggle-button">▼ Bounding Box</button>
+        <div id="bbox-input-container" style="display: none;">
+          <textarea id="bbox-input" placeholder='{"_sw":{"lng":-97.16935769823006,"lat":49.867013598926604},"_ne":{"lng":-97.12272168177587,"lat":49.9052564948272}}'></textarea>
+          <button id="apply-bbox">Apply</button>
+        </div>
+      </div>
     </div>
   </div>
 `;
@@ -257,6 +264,26 @@ const container = "#comparison-container";
 const compare = new mapboxgl.Compare(beforeMap, afterMap, container, {
   mousemove: false,
   orientation: "vertical",
+});
+
+// Toggle bounding box input visibility
+document.getElementById("toggle-bbox-input").addEventListener("click", () => {
+  const container = document.getElementById("bbox-input-container");
+  container.style.display =
+    container.style.display === "none" ? "flex" : "none";
+});
+
+// Apply bounding box coordinates
+document.getElementById("apply-bbox").addEventListener("click", () => {
+  try {
+    const bbox = JSON.parse(document.getElementById("bbox-input").value);
+    if (bbox._sw && bbox._ne) {
+      beforeMap.fitBounds([bbox._sw, bbox._ne], { padding: 20 });
+      afterMap.fitBounds([bbox._sw, bbox._ne], { padding: 20 });
+    }
+  } catch (e) {
+    alert("Invalid bounding box format");
+  }
 });
 
 // Show FYI modal on page load

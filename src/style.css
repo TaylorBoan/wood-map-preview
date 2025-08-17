@@ -1,5 +1,63 @@
 @import url("https://fonts.googleapis.com/css2?family=Trajan+Pro:wght@400&display=swap");
 
+.bounding-box-toggle {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toggle-button {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.toggle-button:hover {
+    background-color: #e9ecef;
+}
+
+#bbox-input-container {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#bbox-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+#apply-bbox {
+    width: 100%;
+    max-width: 300px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+#apply-bbox:hover {
+    background-color: #1557b0;
+}
+
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -325,8 +383,8 @@ body {
 }
 
 .red-dot-marker {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     background-color: #28a745;
     border-radius: 50%;
     border: 2px solid white;
