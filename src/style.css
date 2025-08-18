@@ -2,26 +2,21 @@
 
 .bounding-box-toggle {
     margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 .toggle-button {
-    background-color: #f8f9fa;
+    background: none;
     color: #333;
-    border: 1px solid #ddd;
-    padding: 8px 16px;
+    border: none;
+    padding: 0;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 4px;
     text-align: left;
 }
 
 .toggle-button:hover {
-    background-color: #e9ecef;
+    text-decoration: underline;
 }
 
 #bbox-input-container {
