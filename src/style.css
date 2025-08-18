@@ -197,6 +197,16 @@ body {
     text-align: center;
 }
 
+.view-mode-btn:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.view-mode-btn:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
 .view-mode-btn:hover {
     background-color: #e9ecef;
 }

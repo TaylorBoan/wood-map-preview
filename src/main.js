@@ -1,4 +1,5 @@
 import "./style.css";
+import confetti from "canvas-confetti";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -654,6 +655,13 @@ document.getElementById("marker-address").addEventListener("input", (e) => {
 
 // Handle form submission
 document.getElementById("submit-button").addEventListener("click", () => {
+  // Trigger confetti effect
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 },
+  });
+
   const bounds = beforeMap.getBounds();
   const title = document.getElementById("title").value;
   const subtitle = document.getElementById("subtitle").value;
