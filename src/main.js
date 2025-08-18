@@ -2,6 +2,35 @@ import "./style.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
+/*
+ * STREET THICKNESS API
+ *
+ * This application now supports programmatic control of street thickness for each map size.
+ *
+ * Available functions:
+ *
+ * 1. setStreetThickness(ratio, majorRoads, minorRoads)
+ *    - Sets thickness for a specific aspect ratio
+ *    - Example: setStreetThickness("4x4", 2.0, 1.5)
+ *
+ * 2. getStreetThickness(ratio)
+ *    - Gets current thickness settings for a ratio (or all if no ratio provided)
+ *    - Example: getStreetThickness("11x14") or getStreetThickness()
+ *
+ * 3. setAllStreetThickness(majorRoads, minorRoads)
+ *    - Sets the same thickness for all aspect ratios
+ *    - Example: setAllStreetThickness(2.5, 1.8)
+ *
+ * 4. updateStreetThickness(ratio)
+ *    - Manually triggers thickness update for current ratio
+ *
+ * Available aspect ratios: "4x4", "11x14", "16x16", "20x20"
+ *
+ * Usage from browser console:
+ * window.setStreetThickness("16x16", 3.0, 2.0);
+ *
+ */
+
 // Create the main UI structure
 document.querySelector("#app").innerHTML = `
   <div class="map-wrapper">
@@ -51,6 +80,8 @@ document.querySelector("#app").innerHTML = `
       <h3>JUST FYI</h3>
       <p>This is just a preview.</p>
       <p>Your actual design will almost always contain more detail than what you see here, including all red lines at any zoom level.</p>
+      <p style="display: flex; align-items: center; gap: 8px; margin: 0;"><span style="display: inline-block; width: 20px; height: 2px; background-color: red;"></span> Engraved Streets</p>
+      <p style="display: flex; align-items: center; gap: 8px; margin: 0;"><span style="display: inline-block; width: 20px; height: 2px; background-color: black;"></span> Cut/3D Streets</p>
       <p>We will always send you a final preview before we begin engraving.</p>
       <button id="close-modal" class="modal-close-btn">Got it!</button>
     </div>
@@ -301,6 +332,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Delete Me once the slider is working
 afterMap.on("load", () => {
+  // Initialize street thickness for default aspect ratio
+  updateStreetThickness("11x14");
+
   beforeMap.once("load", () => {
     compare.setSlider(1000); // hard-right
   });
@@ -377,10 +411,10 @@ updateTitleDisplay();
 // MARGIN CONFIGURATION - Adjust these values to customize margins for each aspect ratio
 const MARGIN_SETTINGS = {
   "4x4": {
-    top: "15px",
-    left: "15px",
-    right: "15px",
-    bottom: "30px",
+    top: "30px",
+    left: "30px",
+    right: "30px",
+    bottom: "60px",
   },
   "11x14": {
     top: "20px",
@@ -402,15 +436,101 @@ const MARGIN_SETTINGS = {
   },
 };
 
+// STREET THICKNESS CONFIGURATION - Adjust these values to customize street thickness for each aspect ratio
+const STREET_THICKNESS_SETTINGS = {
+  "4x4": {
+    majorRoads: 4.5,
+    minorRoads: 0.3,
+  },
+  "11x14": {
+    majorRoads: 4.5,
+    minorRoads: 0.3,
+  },
+  "16x16": {
+    majorRoads: 4.5,
+    minorRoads: 0.3,
+  },
+  "20x20": {
+    majorRoads: 4.5,
+    minorRoads: 0.3,
+  },
+};
+
+// Function to programmatically update street thickness settings
+function setStreetThickness(ratio, majorRoads, minorRoads) {
+  if (!STREET_THICKNESS_SETTINGS[ratio]) {
+    console.warn(`Invalid aspect ratio: ${ratio}`);
+    return false;
+  }
+
+  STREET_THICKNESS_SETTINGS[ratio].majorRoads = majorRoads;
+  STREET_THICKNESS_SETTINGS[ratio].minorRoads = minorRoads;
+
+  // If this is the currently active ratio, update the map immediately
+  const activeBtn = document.querySelector(".aspect-btn.active");
+  if (activeBtn && activeBtn.dataset.ratio === ratio) {
+    updateStreetThickness(ratio);
+  }
+
+  return true;
+}
+
+// Function to get current street thickness settings
+function getStreetThickness(ratio = null) {
+  if (ratio) {
+    return STREET_THICKNESS_SETTINGS[ratio] || null;
+  }
+  return STREET_THICKNESS_SETTINGS;
+}
+
+// Function to set street thickness for all aspect ratios at once
+function setAllStreetThickness(majorRoads, minorRoads) {
+  const ratios = Object.keys(STREET_THICKNESS_SETTINGS);
+  ratios.forEach((ratio) => {
+    STREET_THICKNESS_SETTINGS[ratio].majorRoads = majorRoads;
+    STREET_THICKNESS_SETTINGS[ratio].minorRoads = minorRoads;
+  });
+
+  // Update the currently active ratio immediately
+  const activeBtn = document.querySelector(".aspect-btn.active");
+  if (activeBtn) {
+    updateStreetThickness(activeBtn.dataset.ratio);
+  }
+
+  return true;
+}
+
+// Expose street thickness functions globally for programmatic access
+window.setStreetThickness = setStreetThickness;
+window.getStreetThickness = getStreetThickness;
+window.updateStreetThickness = updateStreetThickness;
+window.setAllStreetThickness = setAllStreetThickness;
+
+// Function to update street thickness based on aspect ratio
+function updateStreetThickness(ratio) {
+  const settings = STREET_THICKNESS_SETTINGS[ratio];
+  if (!settings) return;
+
+  // Update major roads thickness
+  if (afterMap.getLayer("major-roads")) {
+    afterMap.setPaintProperty("major-roads", "line-width", settings.majorRoads);
+  }
+
+  // Update minor roads thickness
+  if (afterMap.getLayer("minor-roads")) {
+    afterMap.setPaintProperty("minor-roads", "line-width", settings.minorRoads);
+  }
+}
+
 // TITLE POSITIONING CONFIGURATION - Adjust these values to customize title/subtitle positions
 const TITLE_POSITION_SETTINGS = {
   "4x4": {
-    titleFontSize: "12px",
-    subtitleFontSize: "5px",
+    titleFontSize: "20px",
+    subtitleFontSize: "12px",
     titleVerticalAlign: "center",
     subtitleVerticalAlign: "center",
-    titleHorizontalPadding: "1px",
-    subtitleHorizontalPadding: "40px",
+    titleHorizontalPadding: "10px",
+    subtitleHorizontalPadding: "50px",
   },
   "11x14": {
     titleFontSize: "25px",
@@ -580,8 +700,8 @@ aspectBtns.forEach((btn) => {
     // Using a scale factor to make larger ratios proportionally bigger
     switch (ratio) {
       case "4x4":
-        mapContainer.style.width = "150px";
-        mapContainer.style.height = "150px";
+        mapContainer.style.width = "300px";
+        mapContainer.style.height = "300px";
         break;
       case "11x14":
         mapContainer.style.width = "412px";
@@ -600,14 +720,18 @@ aspectBtns.forEach((btn) => {
     // Update overlay margins
     updateOverlayMargins(ratio);
 
+    // Update street thickness
+    updateStreetThickness(ratio);
+
     // Trigger map resize
     beforeMap.resize();
     afterMap.resize();
   });
 });
 
-// Initialize overlay margins for default selection (11x14)
+// Initialize overlay margins and street thickness for default selection (11x14)
 updateOverlayMargins("11x14");
+updateStreetThickness("11x14");
 
 // Handle view mode selection
 const viewModeBtns = document.querySelectorAll(".view-mode-btn");
