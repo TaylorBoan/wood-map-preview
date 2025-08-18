@@ -127,56 +127,62 @@ document.querySelector("#app").innerHTML = `
             <div class="icon-option" data-icon="None">
               <div class="no-icon">No Icon</div>
             </div>
-            <div class="icon-option" data-icon="babyfeet">
-              <img src="/Icons/BabyFeet.png" alt="Baby Feet">
+            <div class="icon-option" data-icon="motorcycle">
+              <img src="/Icons/00518-Sport-Motorcycle-CF-1-580x387.jpg" alt="Motorcycle">
             </div>
-            <div class="icon-option" data-icon="birthdaycake">
-              <img src="/Icons/BirthdayCake.webp" alt="Birthday Cake">
+            <div class="icon-option" data-icon="baby">
+              <img src="/Icons/1000_F_202931317_7JlNhRZeTnZANztKPhn4bVvpC4HvAPi8.jpg" alt="Baby">
             </div>
-            <div class="icon-option" data-icon="bride">
-              <img src="/Icons/Bride.jpg" alt="Bride">
-            </div>
-            <div class="icon-option" data-icon="church">
-              <img src="/Icons/Church.jpg" alt="Church">
-            </div>
-            <div class="icon-option" data-icon="family">
-              <img src="/Icons/Family.png" alt="Family">
-            </div>
-            <div class="icon-option" data-icon="graduation">
-              <img src="/Icons/Graduation.jpg" alt="Graduation">
-            </div>
-            <div class="icon-option" data-icon="heart">
-              <img src="/Icons/Heart.png" alt="Heart">
-            </div>
-            <div class="icon-option" data-icon="house">
-              <img src="/Icons/House.jpg" alt="House">
-            </div>
-            <div class="icon-option" data-icon="mountains">
-              <img src="/Icons/Mountains.jpg" alt="Mountains">
-            </div>
-            <div class="icon-option" data-icon="palmtrees">
-              <img src="/Icons/PalmTrees.jpg" alt="Palm Trees">
+            <div class="icon-option" data-icon="rings">
+              <img src="/Icons/106436.webp" alt="Wedding Rings">
             </div>
             <div class="icon-option" data-icon="pin">
-              <img src="/Icons/Pin.png" alt="Pin">
-            </div>
-            <div class="icon-option" data-icon="plane">
-              <img src="/Icons/Plane.png" alt="Plane">
-            </div>
-            <div class="icon-option" data-icon="racingflag">
-              <img src="/Icons/RacingFlag.png" alt="Racing Flag">
-            </div>
-            <div class="icon-option" data-icon="rose">
-              <img src="/Icons/Rose.webp" alt="Rose">
+              <img src="/Icons/1638076-200.png" alt="Location Pin">
             </div>
             <div class="icon-option" data-icon="tent">
-              <img src="/Icons/Tent.png" alt="Tent">
+              <img src="/Icons/1647.png" alt="Tent">
+            </div>
+            <div class="icon-option" data-icon="family">
+              <img src="/Icons/2117138-200.png" alt="Family">
+            </div>
+            <div class="icon-option" data-icon="graduation">
+              <img src="/Icons/360_F_316764111_17NQovMYqQSzpf9gNr5lnc1lbcD1qdhh.jpg" alt="Graduation">
+            </div>
+            <div class="icon-option" data-icon="horse">
+              <img src="/Icons/360_F_485686916_USM1VciJsb34P0vsCTHI4Gx3GJLHBwzl.jpg" alt="Horse">
+            </div>
+            <div class="icon-option" data-icon="rose">
+              <img src="/Icons/484167.png" alt="Rose">
+            </div>
+            <div class="icon-option" data-icon="plane">
+              <img src="/Icons/Plane_icon.svg.png" alt="Plane">
+            </div>
+            <div class="icon-option" data-icon="house">
+              <img src="/Icons/Real_Estate__28101_29.jpg" alt="House">
+            </div>
+            <div class="icon-option" data-icon="birthdaycake">
+              <img src="/Icons/birthday-cake-icon-vector-happy-260nw-698609965.jpg.webp" alt="Birthday Cake">
+            </div>
+            <div class="icon-option" data-icon="mountains">
+              <img src="/Icons/depositphotos_461871716-stock-illustration-highland-hiking-mountains-icon-outline.jpg" alt="Mountains">
+            </div>
+            <div class="icon-option" data-icon="heart">
+              <img src="/Icons/heart-15.png" alt="Heart">
+            </div>
+            <div class="icon-option" data-icon="church">
+              <img src="/Icons/illustration-of-church-icon-free-vector.jpg" alt="Church">
+            </div>
+            <div class="icon-option" data-icon="star">
+              <img src="/Icons/images-2.png" alt="Star">
+            </div>
+            <div class="icon-option" data-icon="dog">
+              <img src="/Icons/images.png" alt="Dog">
+            </div>
+            <div class="icon-option" data-icon="deer">
+              <img src="/Icons/istockphoto-490716348-612x612.jpg" alt="Deer">
             </div>
             <div class="icon-option" data-icon="weddingrings">
-              <img src="/Icons/WeddingRings.png" alt="Wedding Rings">
-            </div>
-            <div class="icon-option" data-icon="weddingrings2">
-              <img src="/Icons/WeddingRings2.webp" alt="Wedding Rings Alt">
+              <img src="/Icons/wedding-icon-wedding-rings-black-icon-wedding-symbol-vector-illustration-wedding-icon-wedding-rings-black-icon-wedding-symbol-184832891.jpg.webp" alt="Wedding Rings">
             </div>
           </div>
         </div>
