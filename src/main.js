@@ -72,6 +72,9 @@ document.querySelector("#app").innerHTML = `
       <button class="view-mode-btn active" data-mode="map">Map View</button>
       <button class="view-mode-btn" data-mode="design">Design View</button>
     </div>
+    <div class="size-warning" id="size-warning" style="display: none; color: red; font-size: 12px; text-align: center; margin-top: 5px;">
+      4x4 Map not to relative scale
+    </div>
   </div>
 
   <!-- Initial popup modal -->
@@ -696,18 +699,22 @@ aspectBtns.forEach((btn) => {
       case "4x4":
         mapContainer.style.width = "300px";
         mapContainer.style.height = "300px";
+        document.getElementById("size-warning").style.display = "block";
         break;
       case "11x14":
         mapContainer.style.width = "412px";
         mapContainer.style.height = "525px";
+        document.getElementById("size-warning").style.display = "none";
         break;
       case "16x16":
         mapContainer.style.width = "600px";
         mapContainer.style.height = "600px";
+        document.getElementById("size-warning").style.display = "none";
         break;
       case "20x20":
         mapContainer.style.width = "750px";
         mapContainer.style.height = "750px";
+        document.getElementById("size-warning").style.display = "none";
         break;
     }
 
