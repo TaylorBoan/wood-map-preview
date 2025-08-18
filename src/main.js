@@ -93,22 +93,22 @@ document.querySelector("#app").innerHTML = `
               <div class="no-icon">No Icon</div>
             </div>
             <div class="icon-option" data-icon="motorcycle">
-              <img src="/Icons/00518-Sport-Motorcycle-CF-1-580x387.jpg" alt="Motorcycle">
+              <img src="/Icons/new-motorcycle-icon.jpg" alt="Motorcycle">
             </div>
             <div class="icon-option" data-icon="tree">
-              <img src="/Icons/1000_F_202931317_7JlNhRZeTnZANztKPhn4bVvpC4HvAPi8.jpg" alt="Tree">
+              <img src="/Icons/new-tree-icon.jpg" alt="Tree">
             </div>
             <div class="icon-option" data-icon="graduation">
-              <img src="/Icons/106436.webp" alt="Graduation">
+              <img src="/Icons/new-graduation-icon.webp" alt="Graduation">
             </div>
             <div class="icon-option" data-icon="house">
-              <img src="/Icons/1638076-200.png" alt="House">
+              <img src="/Icons/new-house-icon.png" alt="House">
             </div>
             <div class="icon-option" data-icon="school">
-              <img src="/Icons/1647.png" alt="School">
+              <img src="/Icons/new-school-icon.png" alt="School">
             </div>
             <div class="icon-option" data-icon="mountain">
-              <img src="/Icons/2117138-200.png" alt="Mountain">
+              <img src="/Icons/new-mountain-icon.png" alt="Mountain">
             </div>
             <div class="icon-option" data-icon="car">
               <img src="/Icons/360_F_316764111_17NQovMYqQSzpf9gNr5lnc1lbcD1qdhh.jpg" alt="Car">
