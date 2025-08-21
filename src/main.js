@@ -1,5 +1,4 @@
 import "./style.css";
-import confetti from "canvas-confetti";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -667,14 +666,7 @@ document.getElementById("marker-address").addEventListener("input", (e) => {
 });
 
 // Handle form submission
-document.getElementById("submit-button").addEventListener("click", () => {
-  // Trigger confetti effect
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { y: 0.6 },
-  });
-
+document.getElementById("submit-button").addEventListener("click", async () => {
   const bounds = beforeMap.getBounds();
   const title = document.getElementById("title").value;
   const subtitle = document.getElementById("subtitle").value;
@@ -685,19 +677,36 @@ document.getElementById("submit-button").addEventListener("click", () => {
     document.querySelector(".icon-option.selected")?.dataset.icon || "None";
   const center = beforeMap.getCenter();
 
-  const emailBody = `
-        New Map Selection:
-        Order Number: ${orderNumber}
-        Title: ${title}
-        Subtitle: ${subtitle}
-        Marker Address: ${markerAddress}
-        Selected Icon: ${selectedIcon}
-        Comments: ${comments}
-        Bounds: ${JSON.stringify(bounds)}
-        Center: ${JSON.stringify(center)}
-        Zoom: ${beforeMap.getZoom()}
-    `;
+  const emailBody = `New Map Selection:
+Order Number: ${orderNumber}
+Title: ${title}
+Subtitle: ${subtitle}
+Marker Address: ${markerAddress}
+Selected Icon: ${selectedIcon}
+Comments: ${comments}
+Bounds: ${JSON.stringify(bounds)}
+Center: ${JSON.stringify(center)}
+Zoom: ${beforeMap.getZoom()}`;
 
+  // Copy to clipboard
+  try {
+    await navigator.clipboard.writeText(emailBody);
+
+    // Show temporary success message
+    const button = document.getElementById("submit-button");
+    const originalText = button.textContent;
+    button.textContent = "Copied to Clipboard!";
+    button.style.backgroundColor = "#28a745";
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.style.backgroundColor = "#1a73e8";
+    }, 2000);
+  } catch (err) {
+    console.error("Failed to copy to clipboard:", err);
+  }
+
+  // Open email client
   window.location.href = `mailto:taylor@themapsguy.com?subject=New Map Selection - Order ${orderNumber}&body=${encodeURIComponent(emailBody)}`;
 });
 
