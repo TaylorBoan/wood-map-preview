@@ -35,6 +35,13 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 // Create the main UI structure
 document.querySelector("#app").innerHTML = `
   <div class="map-wrapper">
+    <a href="https://TheMapsGuy.com" class="home-button" target="_blank">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+      Home
+    </a>
     <div class="aspect-selector">
       <button class="aspect-btn" data-ratio="4x4">4x4</button>
       <button class="aspect-btn active" data-ratio="11x14">11x14</button>
